@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - feat/pipeline
-
+#Detailed jobs for the pipeline to dos
 jobs:
   build:
     runs-on: ubuntu-latest
