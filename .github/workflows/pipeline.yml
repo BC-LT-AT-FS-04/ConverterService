@@ -36,7 +36,7 @@ jobs:
           pytest --cov=tests/
   test:
     steps:
-     - name: Install dependencies
+      - name: Install dependencies
         run: |
           pip install --no-cache-dir -r requirements.txt
           sudo apt-get install -y --no-install-recommends ffmpeg
