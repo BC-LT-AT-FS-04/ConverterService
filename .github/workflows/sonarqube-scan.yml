@@ -1,0 +1,28 @@
+name: Run Static Code Analysis on Converter Service
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  sonarqube-analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Static Code Analysis with SonarQube
+      uses: sonarsource/sonarqube-scan-action@v4.1.0
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: https://sonarqube.at04.devops.jala.university
+#        SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+      with:
+        projectBaseDir: .
