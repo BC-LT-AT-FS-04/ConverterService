@@ -29,7 +29,7 @@ class TestMetadataRoutes(unittest.TestCase):
     @patch('routes.metadata_routes.save_file')
     def test_get_metadata_of_a_video(self, mock_save_file, mock_os_remove):
         self.maxDiff = None
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
         
         with open(file, 'rb') as f:
@@ -37,7 +37,7 @@ class TestMetadataRoutes(unittest.TestCase):
                 'file': (FileStorage(f), '2024-11-12 10-27-31.mkv')
             }
             response = self.client.post('/get-metadata', data=data, content_type='multipart/form-data')
-        mock_os_remove.assert_called_once_with(r'.\tests\routes\2024-11-12 10-27-31.mkv')   
+        mock_os_remove.assert_called_once_with(r'./tests/routes/2024-11-12 10-27-31.mkv')   
         self.assertEqual(response.status_code, 200)
         result = response.json
         del result['File Access Date/Time           ']
@@ -84,15 +84,15 @@ class TestMetadataRoutes(unittest.TestCase):
     @patch('routes.metadata_routes.save_file')
     def test_get_metadata_of_a_image(self, mock_save_file, mock_os_remove):
         self.maxDiff = None
-        temp_file = r'.\tests\routes\image.jpeg'
-        mock_save_file.return_value =r'.\tests\routes\image.jpeg'
+        temp_file = r'./tests/routes/image.jpeg'
+        mock_save_file.return_value =r'./tests/routes/image.jpeg'
         
         with open(temp_file, 'rb') as f:
             data = {
                 'file': (FileStorage(f), 'image.jpeg')
             }
             response = self.client.post('/get-metadata', data=data, content_type='multipart/form-data')
-        mock_os_remove.assert_called_once_with(r'.\tests\routes\image.jpeg')   
+        mock_os_remove.assert_called_once_with(r'./tests/routes/image.jpeg')   
         self.assertEqual(response.status_code, 200)
         result = response.json
         del result['File Access Date/Time           ']
@@ -125,15 +125,15 @@ class TestMetadataRoutes(unittest.TestCase):
     @patch('routes.metadata_routes.save_file')
     def test_get_metadata_of_a_image_with_spaces(self, mock_save_file, mock_os_remove):
         self.maxDiff = None
-        temp_file = r'.\tests\routes\image edited.png'
-        mock_save_file.return_value =r'.\tests\routes\image edited.png'
+        temp_file = r'./tests/routes/image edited.png'
+        mock_save_file.return_value =r'./tests/routes/image edited.png'
         
         with open(temp_file, 'rb') as f:
             data = {
                 'file': (FileStorage(f), 'image edited.png')
             }
             response = self.client.post('/get-metadata', data=data, content_type='multipart/form-data')
-        mock_os_remove.assert_called_once_with(r'.\tests\routes\image edited.png')   
+        mock_os_remove.assert_called_once_with(r'./tests/routes/image edited.png')   
         self.assertEqual(response.status_code, 200)
         result = response.json
         del result['File Access Date/Time           ']
@@ -163,7 +163,7 @@ class TestMetadataRoutes(unittest.TestCase):
     @patch('routes.metadata_routes.save_file')
     def test_get_metadata_of_video_with_error(self, mock_save_file, mock_os_remove):
         self.maxDiff = None
-        temp_file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        temp_file = r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_save_file.side_effect = ValueError("No file in the request")
         
         with open(temp_file, 'rb') as f:
