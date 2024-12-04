@@ -30,7 +30,7 @@ class TestMetadataRoutes(unittest.TestCase):
     def test_get_metadata_of_a_video(self, mock_save_file, mock_os_remove):
         self.maxDiff = None
         file = r'./tests/routes/2024-11-12 10-27-31.mkv'
-        mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        mock_save_file.return_value =r'./tests/routes/2024-11-12 10-27-31.mkv'
         
         with open(file, 'rb') as f:
             data = {
