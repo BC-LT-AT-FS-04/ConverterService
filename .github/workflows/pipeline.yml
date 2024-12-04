@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - feat/pipeline
-#Detailed jobs for the pipeline to dos
+#Detailed jobs for the pipeline to do
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,3 +34,26 @@ jobs:
       - name: Generate Code Coverage
         run: |
           pytest --cov=tests/
+  test:
+    steps:
+     - name: Install dependencies
+        run: |
+          pip install --no-cache-dir -r requirements.txt
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          pip install pytest-cov
+          python -m pip install coverage
+
+      - name: Instalar dependencias necesarias
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            libgl1-mesa-glx \
+            libglib2.0-0 \
+            ffmpeg 
+      - name: verificar que tiene acceso a las imagenes
+      run: |
+        ls -la tests/routes
+             
+      - name: Run unit tests and check code coverage
+      run: |
+        coverage run -m unittest
+        coverage report -m
