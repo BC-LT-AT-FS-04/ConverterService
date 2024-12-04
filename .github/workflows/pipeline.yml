@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          apt-get install -y --no-install-recommends libgl1-mesa-glx libglib2.0-0 ffmpeg perl
+          sudo apt-get install -y --no-install-recommends libgl1-mesa-glx libglib2.0-0 ffmpeg perl
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-cov  # Install testing dependencies
