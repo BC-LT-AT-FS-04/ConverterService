@@ -22,7 +22,7 @@ class TestMetadataextractor(unittest.TestCase):
     # Positive test - give metadata extractor a valid image
     def test_metadataextractor(self):
         self.maxDiff = None
-        meta_data_extractor = MetadataExtractor( r'.\tests\converters\extractor\image.jpeg')
+        meta_data_extractor = MetadataExtractor( r'./tests/converters/extractor/image.jpeg')
         result = meta_data_extractor.extract()
         del result['File Access Date/Time           ']
         del result['File Modification Date/Time     ']
@@ -52,7 +52,7 @@ class TestMetadataextractor(unittest.TestCase):
     # Postive test - give metadata extractor a valid image with a name containing spaces
     def test_metadataextractor_file_name_with_spaces(self):
         self.maxDiff = None
-        meta_data_extractor = MetadataExtractor( r'.\tests\converters\extractor\image edited.png')
+        meta_data_extractor = MetadataExtractor( r'./tests/converters/extractor/image edited.png')
         result = meta_data_extractor.extract()
         print(str(result))
         del result['File Access Date/Time           ']
@@ -86,7 +86,7 @@ class TestMetadataextractor(unittest.TestCase):
         mock_platform_system.return_value = "Linux"
         mock_cmd = MockCommandExecutor.return_value
         mock_cmd.run_command.return_value = "key: value\n"
-        meta_data_extractor = MetadataExtractor( r'.\tests\converters\extractor\image.jpeg')
+        meta_data_extractor = MetadataExtractor( r'./tests/converters/extractor/image.jpeg')
         result = meta_data_extractor.extract()
         expected_result = {'key': ' value'}
         self.assertEqual(result,expected_result)
@@ -99,7 +99,7 @@ class TestMetadataextractor(unittest.TestCase):
         mock_platform_system.return_value = "Windows"
         mock_cmd = MockCommandExecutor.return_value
         mock_cmd.run_command.return_value = "key: value\n"
-        meta_data_extractor = MetadataExtractor( r'.\tests\converters\extractor\image.jpeg')
+        meta_data_extractor = MetadataExtractor( r'./tests/converters/extractor/image.jpeg')
         result = meta_data_extractor.extract()
         expected_result = {'key': ' value'}
         self.assertEqual(result,expected_result)
@@ -110,6 +110,6 @@ class TestMetadataextractor(unittest.TestCase):
         mock_cmd = MockCommandExecutor.return_value
         mock_cmd.run_command.side_effect = CmdExecutionError("Command failed", 400)
         with self.assertRaises(MetadataExtractationError) as cpe:
-            meta_data_extractor = MetadataExtractor( r'.\tests\converters\extractor\invalidimage.jpeg')
+            meta_data_extractor = MetadataExtractor( r'./tests/converters/extractor/invalidimage.jpeg')
             meta_data_extractor.extract()
         self.assertIn("Exiftool command execution failed: Command executor: Command failed", cpe.exception.args[0])
