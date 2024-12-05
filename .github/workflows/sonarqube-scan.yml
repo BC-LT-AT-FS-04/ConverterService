@@ -31,13 +31,7 @@ jobs:
     
     - name: SonarQube Quality Gate check
       uses: sonarsource/sonarqube-quality-gate-action@v1.1.0
-      with:
-        pollingTimeoutSec: 600
       env:
        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
        SONAR_HOST_URL: https://sonarqube.at04.devops.jala.university
     
-    - name: Print SonarQube Quality Gate Status
-      run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
-
- 
