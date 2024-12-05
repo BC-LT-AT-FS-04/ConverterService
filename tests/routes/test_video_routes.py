@@ -32,10 +32,10 @@ class TestVideoRoutes(unittest.TestCase):
     @patch('routes.video_routes.get_or_save')
     @patch('routes.video_routes.update')
     def test_video_routes_video_to_images(self,mock_update, mock_get_or_save, mock_save_file):
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
-        mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
+        mock_save_file.return_value =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file=MagicMock()
-        mock_file.file_path =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        mock_file.file_path =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file.output_path = None
         mock_get_or_save.return_value = (False, mock_file)
         with open(file, 'rb') as f:
@@ -55,11 +55,11 @@ class TestVideoRoutes(unittest.TestCase):
     @patch('routes.video_routes.save_file')
     @patch('routes.video_routes.get_or_save')
     def test_video_routes_video_to_images_video_already_exist(self, mock_get_or_save, mock_save_file):
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
-        mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
+        mock_save_file.return_value =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file=MagicMock()
-        mock_file.file_path =r'.\tests\routes\2024-11-12 10-27-31.mkv'
-        mock_file.output_path = r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        mock_file.file_path =r'./tests/routes/2024-11-12 10-27-31.mkv'
+        mock_file.output_path = r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file.checksum = "abc123"
         mock_get_or_save.return_value = (True, mock_file)
         with open(file, 'rb') as f:
@@ -76,7 +76,7 @@ class TestVideoRoutes(unittest.TestCase):
     # Negative test - error saving file - no video has been submited
     @patch('routes.video_routes.save_file')
     def test_video_routes_video_to_images_error_saving_file(self, mock_save_file):
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
         file_type='video'
         mock_save_file.side_effect = ValueError(f"No {file_type} has been submitted in the request.")
         with open(file, 'rb') as f:
@@ -92,10 +92,10 @@ class TestVideoRoutes(unittest.TestCase):
     @patch('routes.video_routes.get_or_save')
     @patch('routes.video_routes.update')
     def test_video_routes_video_to_images_error_get_or_save(self,mock_update, mock_get_or_save, mock_save_file):
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
-        mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
+        mock_save_file.return_value =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file=MagicMock()
-        file_path =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file_path =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file.output_path = None
         mock_get_or_save.side_effect = IOError(f"An error occured while generating file checksum of {file_path}")
         with open(file, 'rb') as f:
@@ -110,10 +110,10 @@ class TestVideoRoutes(unittest.TestCase):
     @patch('routes.video_routes.get_or_save')
     @patch('routes.video_routes.VideoToImagesConverter')
     def test_video_routes_video_to_images_error_convert(self,mock_class_converter, mock_get_or_save, mock_save_file):
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
-        mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
+        mock_save_file.return_value =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file=MagicMock()
-        mock_file.file_path =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        mock_file.file_path =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file.output_path = None
         mock_get_or_save.return_value = (False, mock_file)
         mock_converter = MagicMock()
@@ -133,10 +133,10 @@ class TestVideoRoutes(unittest.TestCase):
     @patch('routes.video_routes.save_file')
     @patch('routes.video_routes.get_or_save')
     def test_video_routes_video_to_video(self, mock_get_or_save, mock_save_file):#,mock_update
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
-        mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
+        mock_save_file.return_value =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file=MagicMock()
-        mock_file.file_path =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        mock_file.file_path =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file.output_path = None
         mock_get_or_save.return_value = (False, mock_file)
         with open(file, 'rb') as f:
@@ -153,7 +153,7 @@ class TestVideoRoutes(unittest.TestCase):
 
     # Negative test - error save file
     def test_video_routes_video_to_video_error_saving_file(self):
-        file = r'.\tests\routes\image.jpeg'
+        file = r'./tests/routes/image.jpeg'
         with open(file, 'rb') as f:
             data = {
                 'file': (FileStorage(f), 'image.jpeg')
@@ -165,8 +165,8 @@ class TestVideoRoutes(unittest.TestCase):
     # Negative test - error saving in DB
     @patch('routes.video_routes.save_file')
     def test_video_routes_video_to_video_error_sending_DB(self, mock_save_file):
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
-        mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
+        mock_save_file.return_value =r'./tests/routes/2024-11-12 10-27-31.mkv'
         with open(file, 'rb') as f:
             data = {
                 'file': (FileStorage(f), '2024-11-12 10-27-31.mkv')
@@ -179,10 +179,10 @@ class TestVideoRoutes(unittest.TestCase):
     @patch('routes.video_routes.save_file')
     @patch('routes.video_routes.get_or_save')
     def test_video_routes_video_to_video_error_convert(self, mock_get_or_save, mock_save_file):
-        file = r'.\tests\routes\2024-11-12 10-27-31.mkv'
-        mock_save_file.return_value =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        file = r'./tests/routes/2024-11-12 10-27-31.mkv'
+        mock_save_file.return_value =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file=MagicMock()
-        mock_file.file_path =r'.\tests\routes\2024-11-12 10-27-31.mkv'
+        mock_file.file_path =r'./tests/routes/2024-11-12 10-27-31.mkv'
         mock_file.output_path = None
         mock_get_or_save.return_value = (False, mock_file)
         with open(file, 'rb') as f:
