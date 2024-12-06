@@ -22,7 +22,7 @@ jobs:
       uses: sonarsource/sonarqube-scan-action@v4.1.0
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: https://sonarqube.at04.devops.jala.university
+        SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
       with:
         projectBaseDir: .
         args: >
@@ -33,5 +33,5 @@ jobs:
       uses: sonarsource/sonarqube-quality-gate-action@v1.1.0
       env:
        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-       SONAR_HOST_URL: https://sonarqube.at04.devops.jala.university
+       SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
     
