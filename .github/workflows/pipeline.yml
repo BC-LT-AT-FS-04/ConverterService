@@ -35,3 +35,30 @@ jobs:
       - name: Generate Code Coverage
         run: |
           pytest --cov=tests/
+  
+  static-code-analysis:
+    needs: build
+    runs-on: ubuntu-22.04
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Static Code Analysis with SonarQube
+      uses: sonarsource/sonarqube-scan-action@v4.1.0
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.projectKey=ConverterService
+          -Dsonar.python.coverage.reportPaths=coverage.xml
+    
+    - name: SonarQube Quality Gate check
+      uses: sonarsource/sonarqube-quality-gate-action@v1.1.0
+      env:
+       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+       SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
