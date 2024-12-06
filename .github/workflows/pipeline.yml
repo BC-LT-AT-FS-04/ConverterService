@@ -3,10 +3,10 @@ name: CI Pipeline
 on:
   pull_request:
     branches:
-      - feat/pipeline
+      - main
   push:
     branches:
-      - feat/pipeline
+      - main
 #Detailed jobs for the pipeline to dos
 jobs:
   build:
