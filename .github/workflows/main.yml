@@ -1,0 +1,38 @@
+name: Configs CI/CD Main
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  CONTAINER_REGISTRY_URL: "{{ lookup('env', 'CONTAINER_REGISTRY_URL') }}"
+  CONTAINER_REGISTRY_USER: "{{ lookup('env', 'CONTAINER_REGISTRY_USER') }}"
+  CONTAINER_REGISTRY_PASSWORD: "{{ lookup('env', 'CONTAINER_REGISTRY_PASSWORD') }}"
+      
+jobs: 
+  push_image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build docker image
+      run: docker compose build api-converter
+
+    #To be able to connect to the nexus container registry
+    - name: Add docker daemon file
+      run: |
+        echo '{ "insecure-registries":[ $CONTAINER_REGISTRY_URL ] }' | sudo tee /etc/docker/daemon.json
+
+    - name: Restart docker service
+      run: systemctl restart docker
+
+    - name: Login to nexus container registry
+      run: echo $CONTAINER_REGISTRY_PASSWORD | docker login $CONTAINER_REGISTRY_URL -u $CONTAINER_REGISTRY_USER --password-stdin 
+          
+    - name: Push docker image
+      run: | 
+        docker tag api-converter $CONTAINER_REGISTRY_URL/api-converter:${{ github.run_number }}
+        docker push $CONTAINER_REGISTRY_URL/api-converter:${{ github.run_number }}
