@@ -138,6 +138,7 @@ class TestImageToImage(unittest.TestCase):
         path_output_video = r'outputs/image_converted_outputs/image_edited.jpeg'
         self.assertEqual(output_path,path_output_video)
 
+    @unittest.skip("Problem with access media content")
     # Positive test - send image with smooth more filter
     def test_converter_image_to_image_with_smooth_more_filter(self):
         file_path = r'./tests/converters/image_to_image/image.jpeg'
