@@ -34,8 +34,8 @@ jobs:
 
       - name: Generate Code Coverage
         run: |
-          pytest --cov=tests/
-  
+          pytest --cov=tests/ --cov-report xml:coverage.xml
+
   static-code-analysis:
     needs: build
     runs-on: ubuntu-22.04
