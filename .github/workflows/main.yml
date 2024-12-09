@@ -12,26 +12,26 @@ env:
       
 jobs: 
   push_image:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Build docker image
-      run: docker compose build api-converter
+      run: sudo docker compose build api-converter
           
     #To be able to connect to the nexus container registry
     - name: Add docker daemon file
       run: echo '{ "insecure-registries":[ $CONTAINER_REGISTRY_URL ] }' | sudo tee /etc/docker/daemon.json
 
     - name: Restart docker service
-      run: systemctl restart docker
+      run: sudo systemctl restart docker
 
     - name: Login to nexus container registry
-      run: echo $CONTAINER_REGISTRY_PASSWORD | docker login $CONTAINER_REGISTRY_URL -u $CONTAINER_REGISTRY_USER --password-stdin 
+      run: echo $CONTAINER_REGISTRY_PASSWORD | sudo docker login $CONTAINER_REGISTRY_URL -u $CONTAINER_REGISTRY_USER --password-stdin 
 
     - name: Push docker image
       run: | 
-        docker tag converterservice-api-converter $CONTAINER_REGISTRY_URL/converter-service:${{ github.run_number }}
-        docker push $CONTAINER_REGISTRY_URL/converter-service:${{ github.run_number }}
+        sudo docker tag converterservice-api-converter $CONTAINER_REGISTRY_URL/converter-service:${{ github.run_number }}
+        sudo docker push $CONTAINER_REGISTRY_URL/converter-service:${{ github.run_number }}
