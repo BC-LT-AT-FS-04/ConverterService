@@ -34,4 +34,4 @@ jobs:
 
       - name: Generate Code Coverage
         run: |
-          pytest --cov=tests/
+          pytest --cov=tests/ --cov-report xml:coverage.xml
