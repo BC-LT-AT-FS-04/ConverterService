@@ -44,7 +44,7 @@ jobs:
   
   push_image:
       runs-on: ubuntu-24.04
-      if: ${{ github.event_name == 'push' }}  # Only runs on push events
+      # if: ${{ github.event_name == 'push' }}  # Only runs on push events
 
       steps:
       - name: Checkout code
