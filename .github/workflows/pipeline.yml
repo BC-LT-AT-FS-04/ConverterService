@@ -16,7 +16,7 @@ env:
 #Detailed jobs for the pipeline to dos
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
