@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  CONTAINER_REGISTRY_URL: "${{ vars.CONTAINER_REGISTRY_URL }}"
+  CONTAINER_REGISTRY_URL: "registry.at04.devops.jala.university"
   CONTAINER_REGISTRY_USER: "${{ vars.CONTAINER_REGISTRY_USER }}"
   CONTAINER_REGISTRY_PASSWORD: "${{ secrets.CONTAINER_REGISTRY_PASSWORD }}"
 
