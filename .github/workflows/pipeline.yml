@@ -72,16 +72,16 @@ jobs:
       #To be able to connect to the nexus container registry
       - name: Add docker daemon file
         run: |
-          echo '{"insecure-registries": ["registry.at04.devops.jala.university"]}' | sudo tee /etc/docker/daemon.json
+          echo '{"insecure-registries": ["${{ vars.CONTAINER_REGISTRY_URL }}"]}' | sudo tee /etc/docker/daemon.json
           sudo cat /etc/docker/daemon.json
 
       - name: Restart docker service
         run: sudo systemctl restart docker
 
       - name: Login to nexus container registry
-        run: echo $CONTAINER_REGISTRY_PASSWORD | sudo docker login registry.at04.devops.jala.university -u $CONTAINER_REGISTRY_USER --password-stdin 
+        run: echo $CONTAINER_REGISTRY_PASSWORD | sudo docker login ${{ vars.CONTAINER_REGISTRY_URL }} -u $CONTAINER_REGISTRY_USER --password-stdin 
 
       - name: Push docker image
         run: | 
-          sudo docker tag converterservice-api-converter registry.at04.devops.jala.university/${{ github.event.repository.name }}:${{ github.run_number }}
-          sudo docker push registry.at04.devops.jala.university/${{ github.event.repository.name }}:${{ github.run_number }}
+          sudo docker tag converterservice-api-converter ${{ vars.CONTAINER_REGISTRY_URL }}/converterservice:${{ github.run_number }}
+          sudo docker push ${{ vars.CONTAINER_REGISTRY_URL }}/converterservice:${{ github.run_number }}
