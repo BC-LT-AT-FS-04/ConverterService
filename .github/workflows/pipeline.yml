@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  CONTAINER_REGISTRY_URL: "registry.at04.devops.jala.university"
+  CONTAINER_REGISTRY_URL: "${{ vars.CONTAINER_REGISTRY_URL }}"
   CONTAINER_REGISTRY_USER: "${{ vars.CONTAINER_REGISTRY_USER }}"
   CONTAINER_REGISTRY_PASSWORD: "${{ secrets.CONTAINER_REGISTRY_PASSWORD }}"
 
@@ -44,7 +44,6 @@ jobs:
   
   push_image:
       runs-on: ubuntu-24.04
-      # if: ${{ github.event_name == 'push' }}  # Only runs on push events
 
       steps:
       - name: Checkout code
@@ -55,15 +54,16 @@ jobs:
             
       #To be able to connect to the nexus container registry
       - name: Add docker daemon file
-        run: echo '{ "insecure-registries":[ $CONTAINER_REGISTRY_URL ] }' | sudo tee /etc/docker/daemon.json
+        run: |
+          echo '{"insecure-registries": ["registry.at04.devops.jala.university"]}' | sudo tee /etc/docker/daemon.json
 
       - name: Restart docker service
         run: sudo systemctl restart docker
 
       - name: Login to nexus container registry
-        run: echo $CONTAINER_REGISTRY_PASSWORD | sudo docker login $CONTAINER_REGISTRY_URL -u $CONTAINER_REGISTRY_USER --password-stdin 
+        run: echo $CONTAINER_REGISTRY_PASSWORD | sudo docker login registry.at04.devops.jala.university -u $CONTAINER_REGISTRY_USER --password-stdin 
 
       - name: Push docker image
         run: | 
-          sudo docker tag converterservice-api-converter $CONTAINER_REGISTRY_URL/${{ github.event.repository.name }}:${{ github.run_number }}
-          sudo docker push $CONTAINER_REGISTRY_URL/${{ github.event.repository.name }}:${{ github.run_number }}
+          sudo docker tag converterservice-api-converter registry.at04.devops.jala.university/${{ github.event.repository.name }}:${{ github.run_number }}
+          sudo docker push registry.at04.devops.jala.university/${{ github.event.repository.name }}:${{ github.run_number }}
