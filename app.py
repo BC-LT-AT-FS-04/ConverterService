@@ -38,7 +38,7 @@ app.register_blueprint(login_blueprint, url_prefix='/api')
 
 @app.route("/")
 def home():
-    return "Welcome to the API Converter Service!"
+    return "Welcome to the API Converter Service v1!"
 
 
 if __name__ == "__main__":
